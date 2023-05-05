@@ -18,11 +18,15 @@ public class Var implements Serializable {
     @Column(name = "var_type")
     private int varType;
 
-    @Column(name = "var_answer_txt")
-    private int varAnswerTxt;
+    @Column(name = "var_desc")
+    private int varDesc;
 
     @OneToMany(mappedBy = "var", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Option> options = new HashSet<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     public Set<Option> getOptions() {
         return options;
@@ -49,15 +53,18 @@ public class Var implements Serializable {
     }
 
 
-    public int getVarAnswerTxt() {
-        return varAnswerTxt;
+    public int getVarDesc() {
+        return varDesc;
     }
 
     public void setVarAnswerTxt(int varAnswerTxt) {
-        this.varAnswerTxt = varAnswerTxt;
+        this.varDesc = varAnswerTxt;
     }
 
     public Var() {
+        // default constructor
+    }
+    public Var(Product product,String varName,int varType, String varDesc ) {
         // default constructor
     }
 }

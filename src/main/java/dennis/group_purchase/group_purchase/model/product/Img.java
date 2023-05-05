@@ -13,6 +13,8 @@ public class Img implements Serializable {
         this.imgUrl = imgUrl;
     }
 
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,9 +22,14 @@ public class Img implements Serializable {
 
     @Column(name = "img_url")
     private String imgUrl;
-
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    private Product product;
     public Img() {
         // default constructor
+    }
+    public Img(Product product, String imgUrl ) {
+        this.imgUrl = imgUrl;
+        this.product = product;
     }
 }

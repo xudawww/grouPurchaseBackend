@@ -20,32 +20,23 @@ public class Product implements Serializable {
 
     @Lob
     @Column(name = "product_description")
-    private String productDescription;
+    private String productDesc;
 
 
-    @ManyToMany
-    @JoinTable(
-            name = "product_img",
-            joinColumns = @JoinColumn(name = "img_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Img> imgs = new HashSet<>();
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Var> vars = new HashSet<>();
 
 
-    @ManyToMany
-    @JoinTable(
-            name = "product_var",
-            joinColumns = @JoinColumn(name = "var_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private Set<Var> Vars = new HashSet<>();
 
-
-    public String getProductDescription() {
-        return productDescription;
+    public String getProductDesc() {
+        return productDesc;
     }
 
-    public void setProductDescription(String productDescription) {
-        this.productDescription = productDescription;
+    public void setProductDesc(String productDescription) {
+        this.productDesc = productDescription;
     }
 
     public Set<Img> getImgs() {
@@ -57,12 +48,15 @@ public class Product implements Serializable {
     }
 
     public Set<Var> getVars() {
-        return Vars;
+        return vars;
     }
 
     public void setVars(Set<Var> vars) {
-        Vars = vars;
+        vars = vars;
     }
+
+
+
     public Product() {
         // default constructor
     }
